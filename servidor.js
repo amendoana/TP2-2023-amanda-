@@ -10,9 +10,9 @@ app.use(express.json())
 
 app.post('/create', (req, res) => {
 fs.writeFileSync(req.body.email+'.json', JSON.stringify(req.body))
-res.send("ok <a href='/'>Voltar p/ pagina inicial </a>")
+res.send({message: "Dados salvos com sucesso!"})
 })
-
+https://github.com/amendoana/TP2-2023-amanda-.git
 app.get('/read', (req, res) => {
 res.send({lista: fs.readdirSync('./').filter(e => e.includes('.json') && e.includes('@')) })
 })
@@ -22,11 +22,11 @@ res.send(JSON.parse(fs.readFileSync(req.params.email+'.json')))
 })
 app.delete('/delete/:email', (req, res) => {
 fs.unlinkSync(req.body.email+'.json')
-res.send('dados apagados')
+res.send({message: "Dados apagados com sucesso!"})
 })
 app.put('/update/:email', (req, res) => {
 fs.writeFileSync(req.body.email+'.json', JSON.stringify(req.body), {flag: 'w'})
-res.send('dados atualizados')
+res.send({message: "Dados atualizados com sucesso!"})
 })
 
 app.listen(3000, () => console.log(`server rodando`))
