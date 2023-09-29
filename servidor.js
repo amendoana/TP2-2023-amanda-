@@ -6,15 +6,16 @@ const app = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-
+global.db = require('./db');
 
 app.post('/create', (req, res) => {
-fs.writeFileSync(req.body.email+'.json', JSON.stringify(req.body))
+global.db.salvar(req.body)
 res.send({message: "Dados salvos com sucesso!"})
 })
 https://github.com/amendoana/TP2-2023-amanda-.git
 app.get('/read', (req, res) => {
-res.send({lista: fs.readdirSync('./').filter(e => e.includes('.json') && e.includes('@')) })
+    listabd = global.db.busqueTodas()
+res.send({lista: listabd })
 })
 
 app.get('/read/:email', (req, res) => {
